@@ -55,14 +55,18 @@ def search_businesses(category, location, ids):
 
     return obj
 
-@app.route('/api/post/<int:days>/<string:userLocation>/<string:userCategories>/')
-def generate_itinerary(days, userLocation, userCategories):
-    num_days = days
+@app.route('/api/post/<string:startDate>/<string:endDate>/<string:userLocation>/<string:userCategories>/<int:userBusyness>/')
+def generate_itinerary(startDate, endDate, userLocation, userCategories, userBusyness):
+    start = startDate.replace('-', ' ')
+    end = endDate.replace('-', ' ')
+    startTime = datetime(start, '%b %d %Y')
+    endTime = datetime(end, '%b %d %Y')
+    num_days = (endTime-startTime).days
     days_itin = []
     location = userLocation
     #categories = ["Parks", "Shopping", "Restaurants", "Nightlife", "Entertainment"]
     categories = userCategories.split('-')
-    busyness = Busyness.MODERATE
+    busyness = userBusyness
     has_restaurant, has_nightlife = filter_categories(categories)
     last_location = location
     ids = set()

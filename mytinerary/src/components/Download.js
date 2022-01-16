@@ -9,7 +9,34 @@ import NavBar from "./NavBar.js"
 
 function Body(){
 
-  fetch('http://localhost:5000/api/post/3/Toronto/Restaurants-Entertainment-Parks-Shopping/')
+  const busy = window.busyness;
+  const loc = window.city;
+  const parks = window.parks;
+  const entertain = window.entertainment;
+  const shop = window.shopping;
+  const restaurants = window.restaurants;
+  const nightlife = window.nightlife;
+  var start = String(window.startvalue);
+  var end = String(window.endvalue);
+
+  let startTime = ((start.split(" ")).slice(1,4)).join('-')
+  let endTime = ((end.split(" ")).slice(1,4)).join('-')
+
+  console.log(startTime);
+  console.log(endTime);
+
+  let cats = []
+  if(entertain) cats.push("Entertainment")
+  if(shop) cats.push("Shopping")
+  if(restaurants) cats.push("Restaurants")
+  if(nightlife) cats.push("Nightlife")
+  if(parks) cats.push("Parks")
+
+  let userCats = cats.join('-')
+
+  var url = "http://localhost:5000/api/post/" + startTime + "/" + endTime + "/" + loc + "/" + userCats + "/" + busy + "/";
+
+  fetch(url)
   .then(res => res.json())
   .then(data => console.log(data))
 
