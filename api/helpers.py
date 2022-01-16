@@ -5,7 +5,7 @@ def create_pdf(data):
     count = 0
     
     itinerary = [
-        ['Date', 'Time', 'Event Details']
+        ['Date'              , 'Time               ', 'Event Details               ']
     ]
 
     for item in data:
@@ -16,7 +16,11 @@ def create_pdf(data):
             
             if activ is not None:
                 details = str(item[activ])
-                details = details.replace(',', '\n')
+                details = details.replace(', ', '\n')
+                details = details.replace('{', '')
+                details = details.replace('}', '')
+                details = details.replace("'", '')
+                
                 row.append(details)
             else:
                 row.append('')
@@ -40,10 +44,22 @@ def create_pdf(data):
     table = Table(itinerary)
 
     from reportlab.platypus import TableStyle
+    from reportlab.lib import colors
 
     style = TableStyle([
-        ('FONTSIZE', (0,0), (-1,0), 4)
+        ('BACKGROUND', (0,0), (3,0), colors.green),
     ])
+
+    table.setStyle(style)
+
+    ts = TableStyle(
+        [
+            ('BOX', (0,0), (-1,-1), 2, colors.black),
+            ('GRID', (0,1), (-1,-1), 2, colors.black)
+        ]
+    )
+
+    table.setStyle(ts)
 
     elems = []
     elems.append(table)
