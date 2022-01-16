@@ -1,4 +1,4 @@
-from flask import Flask, Response, send_from_directory
+from flask import Flask, Response, send_from_directory, send_file
 from flask_cors import CORS
 import requests
 import json
@@ -133,7 +133,7 @@ def generate_itinerary(startDate, endDate, userLocation, userCategories, userBus
 @app.route('/api/get/itinerary/pdf')
 def get_pdf():
     workingdir = os.path.abspath(os.getcwd())
-    return send_from_directory(workingdir, 'pdfTable.pdf')
+    return send_file(os.path.join(workingdir, 'pdfTable.pdf'), as_attachment=True)
 
 @app.route('/api/get/itinerary/ics')
 def get_ics():

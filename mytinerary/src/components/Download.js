@@ -45,14 +45,11 @@ function Body(){
   const clickPDF = () => {
     fetch("http://localhost:5000/api/get/itinerary/pdf")
     .then((response) => {
-      var a = response.body.getReader();
-      a.read().then(({ done, value }) => {
-          // console.log(new TextDecoder("utf-8").decode(value));
-          saveAsFile(new TextDecoder("utf-8").decode(value), 'filename');
+          console.log('DUB!')
         }
       );
-    })
-  }
+    }
+  
 
   const clickICS = () => {
     fetch("http://localhost:5000/api/get/itinerary/ics")
