@@ -5,6 +5,7 @@ import json
 import random
 from datetime import datetime
 from pdf_gen import create_pdf
+from ics_gen import create_ics
 
 random.seed(datetime.now())
 API_KEY = 'rZz4DQe06UyMRcTToBVyQrOrkltbyZ5F8MvO3yW8vadGOo41iG8PZKoi_-HWV4p7LVSIOnXIctifKNQf_1sSsmbP1RkWKnAufcpA5p65jU4a4zSmqX03dzP_cfPgYXYx'
@@ -119,6 +120,7 @@ def generate_itinerary(days, userLocation, userCategories):
         days_itin.append(itinerary)
 
     print(days_itin)
+    create_ics(days_itin)
     create_pdf(days_itin)
     data = {"days_itin": days_itin}
     return data
