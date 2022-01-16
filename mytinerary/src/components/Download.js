@@ -9,6 +9,10 @@ import NavBar from "./NavBar.js"
 
 function Body(){
 
+  fetch('http://localhost:5000/api/post/3/Toronto/Restaurants-Entertainment-Parks-Shopping/')
+  .then(res => res.json())
+  .then(data => console.log(data))
+
   return (
     <Container bg={bg}>
         <NavBar />

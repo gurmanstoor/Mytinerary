@@ -13,10 +13,8 @@ import Download from './components/Download';
 
 
 function App() {
- 
   return (
     <>
-      
       <BrowserRouter>
         <NavBar/>
         <Switch>

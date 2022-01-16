@@ -17,6 +17,8 @@ const Autocomplete = () => {
     res.error ? setAutocompleteErr(res.error) : setAutocompleteErr("");
   };
 
+  window.city = city;
+
   return (
     <form>
       <div className="placesAutocomplete">

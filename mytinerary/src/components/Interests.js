@@ -29,6 +29,12 @@ function Interests() {
     setCheckedFive(!checkedFive);
   };
 
+  window.parks = checkedOne;
+  window.entertainment = checkedTwo;
+  window.shopping = checkedThree;
+  window.restaurants = checkedFour;
+  window.nightlife = checkedFive;
+
   return (
     <Container bg={bg}>
       <NavBar />

@@ -7,8 +7,11 @@ import React, { useState } from "react";
 import DatePicker from "react-date-picker";
 
 function Dates() {
-  const [startvalue, onStartChange] = useState(new Date());
-  const [endvalue, onEndChange] = useState(new Date());
+  const [startvalue, setStartValue] = useState(new Date());
+  const [endvalue, setEndValue] = useState(new Date());
+  
+  window.startvalue = startvalue;
+  window.endvalue = endvalue;
 
   return (
     <Container bg={bg}>
@@ -22,11 +25,11 @@ function Dates() {
         <Bars>
           <DateText>
             Arrival
-            <DatePicker style = {"none"} className = "DatePicker" onChange={onStartChange} value={startvalue} minDate = {new Date()}/>
+            <DatePicker style = {"none"} className = "DatePicker" onChange={setStartValue} value={startvalue} minDate = {new Date()}/>
           </DateText>
           <DateText>
             Departure
-            <DatePicker className = "DatePicker" onChange={onEndChange} value={endvalue} minDate = {new Date()}/>
+            <DatePicker className = "DatePicker" onChange={setEndValue} value={endvalue} minDate = {new Date()}/>
           </DateText>
           
           

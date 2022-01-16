@@ -4,8 +4,12 @@ import bg from "../assets/Background.png";
 import NavBar from "./NavBar.js"
 import {Link} from 'react-router-dom';
 import ReactSlider from 'react-slider'
+import {useState} from 'react'
 
 function Busy() {
+  const onInput = () => {
+    window.busyness = document.getElementById("busylevel").value
+  }
 
   return (
     <Container bg={bg}>
@@ -17,7 +21,7 @@ function Busy() {
           </Header>
         </Text>
         <div className = "SliderWrap">
-          <input className = "Slider" type="range" list="tickmarks" min="0" max = "2" />
+          <input id = "busylevel" className = "Slider" type="range" list="tickmarks" min="0" max = "2" onInput={onInput} />
           <datalist id="tickmarks">
           <option value="0" label="Relaxed"></option>
           <option value="1" label="Moderate"></option>
