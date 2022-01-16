@@ -1,7 +1,9 @@
-def create_pdf(data):
+import datetime
+
+def create_pdf(data, start_date, num_days):
     TIMES = ['9:00-11:00', '11:30-1:00', '1:30-3:30', '4:00-6:00', '6:30-8:00', '9:00-12:00']
     ACTIVITIES = ['activity1', 'lunch', 'activity2', 'activity3', 'dinner', 'night']
-    DATE = '12/02/2023'
+    DATE = start_date
     count = 0
     
     itinerary = [
@@ -11,7 +13,7 @@ def create_pdf(data):
     for item in data:
         for activ in ACTIVITIES:
             row = []
-            row.append(DATE)
+            row.append(DATE.strftime("%Y/%m/%d"))
             row.append(TIMES[count%6])
             
             if str(item[activ]) == 'null':
@@ -26,6 +28,8 @@ def create_pdf(data):
                 row.append(details)
 
             count += 1
+            if(count%6 == 0):
+                DATE += datetime.timedelta(days=1)
             itinerary.append(row)
     
 

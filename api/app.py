@@ -125,8 +125,8 @@ def generate_itinerary(startDate, endDate, userLocation, userCategories, userBus
         days_itin.append(itinerary)
 
     print(days_itin)
-    create_ics(days_itin)
-    create_pdf(days_itin)
+    create_ics(days_itin, startTime)
+    create_pdf(days_itin, startTime, num_days)
     data = {"days_itin": days_itin}
     return data
 
