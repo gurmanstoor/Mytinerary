@@ -138,4 +138,4 @@ def get_pdf():
 @app.route('/api/get/itinerary/ics')
 def get_ics():
     workingdir = os.path.abspath(os.getcwd())
-    return send_from_directory(workingdir, 'example.ics')
+    return send_file(os.path.join(workingdir, 'example.ics'), as_attachment=True)
