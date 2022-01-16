@@ -4,7 +4,7 @@ import requests
 import json
 import random
 from datetime import datetime
-from helpers import create_pdf
+from pdf_gen import create_pdf
 
 random.seed(datetime.now())
 API_KEY = 'rZz4DQe06UyMRcTToBVyQrOrkltbyZ5F8MvO3yW8vadGOo41iG8PZKoi_-HWV4p7LVSIOnXIctifKNQf_1sSsmbP1RkWKnAufcpA5p65jU4a4zSmqX03dzP_cfPgYXYx'
