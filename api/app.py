@@ -4,6 +4,7 @@ import requests
 import json
 import random
 from datetime import datetime
+from helpers import create_pdf
 
 random.seed(datetime.now())
 API_KEY = 'rZz4DQe06UyMRcTToBVyQrOrkltbyZ5F8MvO3yW8vadGOo41iG8PZKoi_-HWV4p7LVSIOnXIctifKNQf_1sSsmbP1RkWKnAufcpA5p65jU4a4zSmqX03dzP_cfPgYXYx'
@@ -55,7 +56,7 @@ def search_businesses(category, location, ids):
 
 @app.route('/api/post/')
 def generate_itinerary():
-    num_days = 5
+    num_days = 1
     days_itin = []
     location = "Hawaii" 
     categories = ["Parks", "Shopping", "Restaurants", "Nightlife", "Entertainment"]
@@ -117,6 +118,7 @@ def generate_itinerary():
         days_itin.append(itinerary)
 
     print(days_itin)
+    create_pdf(days_itin)
     data = {"days_itin": days_itin}
     return data
 
