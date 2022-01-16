@@ -36,7 +36,7 @@ function Body() {
 
   let city = loc.split(", ")[0];
 
-  var url = "http://localhost:5000/api/post/" + startTime + "/" + endTime + "/" + city + "/" + userCats + "/" + busy + "/";
+  var url = "https://mytinerary-nwhacks-2022.herokuapp.com/api/post/" + startTime + "/" + endTime + "/" + city + "/" + userCats + "/" + busy + "/";
 
   fetch(url)
     .then(res => res.json())
@@ -47,16 +47,16 @@ function Body() {
       <NavBar />
       <Wrapper>
         <Header>
-          All done! Check out your itinerary below:
+          All done! Please wait for 5 seconds and then check out your itinerary below:
         </Header>
 
         <ButtonWrapper>
-            <a href="http://localhost:5000/api/get/itinerary/pdf" target="_blank">
+            <a href="https://mytinerary-nwhacks-2022.herokuapp.com/api/get/itinerary/pdf" target="_blank">
               <DownloadButton>
                 {"Download as PDF"}
               </DownloadButton>
             </a>
-            <a href="http://localhost:5000/api/get/itinerary/ics" target="_blank">
+            <a href="https://mytinerary-nwhacks-2022.herokuapp.com/api/get/itinerary/ics" target="_blank">
               <DownloadButton>
                 {"Download as ICS"}
               </DownloadButton>

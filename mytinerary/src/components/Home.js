@@ -8,7 +8,7 @@ function Body(){
 
   return (
     <Container bg={bg}>
-        <NavBar />
+        
         <Wrapper>
             <Header>
                 Personalized Itineraries
@@ -57,7 +57,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-    padding: 0rem 0rem 20rem 2rem;
+    padding: 10rem 0rem 20rem 2rem;
     color: #FFF;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
