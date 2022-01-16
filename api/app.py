@@ -55,68 +55,70 @@ def search_businesses(category, location, ids):
 
 @app.route('/api/post/')
 def generate_itinerary():
+    num_days = 5
+    days_itin = []
     location = "Hawaii" 
     categories = ["Parks", "Shopping", "Restaurants", "Nightlife", "Entertainment"]
     busyness = Busyness.MODERATE
     has_restaurant, has_nightlife = filter_categories(categories)
     last_location = location
-    counter = {"Parks": 0, "Entertainment": 0, "Shopping": 0, "Restaurants": 0, "Nightlife": 0}
     ids = set()
     itinerary = {"activity1" : None, "lunch" : None, "activity2" : None, "activity3" : None, "dinner" : None, "night" : None}
 
-    # ACTIVITY 1
-    if busyness != Busyness.RELAXED and len(categories) > 0:
-        rand = random.randint(0, len(categories) - 1)
-        category = categories[rand]
-        itinerary["activity1"] = search_businesses(category, last_location, ids)
-    
-        last_location = itinerary["activity1"]["location"]
-        counter[category] = counter[category] + 1
-  
-    # LUNCH
-    if has_restaurant:
-        category = "Restaurants"
-        itinerary["lunch"] = search_businesses(category, last_location, ids)
-    
-        last_location = itinerary["lunch"]["location"]
-        counter[category] = counter[category] + 1
+    for i in range(num_days):
+        last_location = "Hawaii"
+        itinerary = {"activity1" : None, "lunch" : None, "activity2" : None, "activity3" : None, "dinner" : None, "night" : None}
 
-    # ACTIVITY 2
-    if len(categories) > 0:
-        rand = random.randint(0, len(categories) - 1)
-        category = categories[rand]
-        itinerary["activity2"] = search_businesses(category, last_location, ids)
+        # ACTIVITY 1
+        if busyness != Busyness.RELAXED and len(categories) > 0:
+            rand = random.randint(0, len(categories) - 1)
+            category = categories[rand]
+            itinerary["activity1"] = search_businesses(category, last_location, ids)
         
-        last_location = itinerary["activity2"]["location"]
-        counter[category] = counter[category] + 1
-
-    # ACTIVITY 3
-    if busyness == Busyness.BUSY and len(categories) > 0:
-        rand = random.randint(0, len(categories) - 1)
-        category = categories[rand]
-        itinerary["activity3"] = search_businesses(category, last_location, ids)
-      
-        last_location = itinerary["activity3"]["location"]
-        counter[category] = counter[category] + 1
-
-    # DINNER
-    if has_restaurant:
-        category = "Restaurants"
-        itinerary["dinner"] = search_businesses(category, last_location, ids)
+            last_location = itinerary["activity1"]["location"]
     
-        last_location = itinerary["dinner"]["location"]
-        counter[category] = counter[category] + 1
+        # LUNCH
+        if has_restaurant:
+            category = "Restaurants"
+            itinerary["lunch"] = search_businesses(category, last_location, ids)
+        
+            last_location = itinerary["lunch"]["location"]
 
-    # NIGHTLIFE
-    if has_nightlife:
-        category = "Nightlife"
-        itinerary["night"] = search_businesses(category, last_location, ids)
-    
-        last_location = itinerary["night"]["location"]
-        counter[category] = counter[category] + 1
+        # ACTIVITY 2
+        if len(categories) > 0:
+            rand = random.randint(0, len(categories) - 1)
+            category = categories[rand]
+            itinerary["activity2"] = search_businesses(category, last_location, ids)
+            
+            last_location = itinerary["activity2"]["location"]
 
-    print(itinerary)
-    return itinerary
+        # ACTIVITY 3
+        if busyness == Busyness.BUSY and len(categories) > 0:
+            rand = random.randint(0, len(categories) - 1)
+            category = categories[rand]
+            itinerary["activity3"] = search_businesses(category, last_location, ids)
+        
+            last_location = itinerary["activity3"]["location"]
+
+        # DINNER
+        if has_restaurant:
+            category = "Restaurants"
+            itinerary["dinner"] = search_businesses(category, last_location, ids)
+        
+            last_location = itinerary["dinner"]["location"]
+
+        # NIGHTLIFE
+        if has_nightlife:
+            category = "Nightlife"
+            itinerary["night"] = search_businesses(category, last_location, ids)
+        
+            last_location = itinerary["night"]["location"]
+
+        days_itin.append(itinerary)
+
+    print(days_itin)
+    data = {"days_itin": days_itin}
+    return data
 
 @app.route('/api/get/itinerary/pdf')
 def get_pdf():
