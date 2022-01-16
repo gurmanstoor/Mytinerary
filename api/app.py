@@ -54,12 +54,13 @@ def search_businesses(category, location, ids):
 
     return obj
 
-@app.route('/api/post/')
-def generate_itinerary():
-    num_days = 1
+@app.route('/api/post/<int:days>/<string:userLocation>/<string:userCategories>/')
+def generate_itinerary(days, userLocation, userCategories):
+    num_days = days
     days_itin = []
-    location = "Hawaii" 
-    categories = ["Parks", "Shopping", "Restaurants", "Nightlife", "Entertainment"]
+    location = userLocation
+    #categories = ["Parks", "Shopping", "Restaurants", "Nightlife", "Entertainment"]
+    categories = userCategories.split('-')
     busyness = Busyness.MODERATE
     has_restaurant, has_nightlife = filter_categories(categories)
     last_location = location
@@ -67,7 +68,7 @@ def generate_itinerary():
     itinerary = {"activity1" : None, "lunch" : None, "activity2" : None, "activity3" : None, "dinner" : None, "night" : None}
 
     for i in range(num_days):
-        last_location = "Hawaii"
+        last_location = location
         itinerary = {"activity1" : None, "lunch" : None, "activity2" : None, "activity3" : None, "dinner" : None, "night" : None}
 
         # ACTIVITY 1
