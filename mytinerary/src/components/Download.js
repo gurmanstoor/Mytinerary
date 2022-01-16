@@ -10,7 +10,7 @@ import NavBar from "./NavBar.js"
 function Body(){
 
   const busy = window.busyness;
-  const loc = window.city;
+  const loc = window.city
   const parks = window.parks;
   const entertain = window.entertainment;
   const shop = window.shopping;
@@ -34,11 +34,30 @@ function Body(){
 
   let userCats = cats.join('-')
 
-  var url = "http://localhost:5000/api/post/" + startTime + "/" + endTime + "/" + loc + "/" + userCats + "/" + busy + "/";
+  let city = loc.split(", ")[0];
+
+  var url = "http://localhost:5000/api/post/" + startTime + "/" + endTime + "/" + city + "/" + userCats + "/" + busy + "/";
 
   fetch(url)
   .then(res => res.json())
   .then(data => console.log(data))
+
+  const clickPDF = () => {
+    fetch("http://localhost:5000/api/get/itinerary/pdf")
+    .then((response) => {
+      var a = response.body.getReader();
+      a.read().then(({ done, value }) => {
+          // console.log(new TextDecoder("utf-8").decode(value));
+          saveAsFile(new TextDecoder("utf-8").decode(value), 'filename');
+        }
+      );
+    })
+  }
+
+  const clickICS = () => {
+    fetch("http://localhost:5000/api/get/itinerary/ics")
+    .then(res => console.log(res))
+  }
 
   return (
     <Container bg={bg}>
@@ -49,10 +68,10 @@ function Body(){
             </Header>
         
           <ButtonWrapper>
-            <Link to ="/"><DownloadButton>
+            <Link to ="/"><DownloadButton onClick={clickPDF}>
                 {"Download as PDF"}
             </DownloadButton> </Link>
-            <Link to ="/"><DownloadButton>
+            <Link to ="/"><DownloadButton onClick={clickICS}>
                 {"Download as ICS"}
             </DownloadButton> </Link>
           </ButtonWrapper>

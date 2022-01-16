@@ -40,9 +40,7 @@ def create_ics(data):
                     day += 1
     
 
-    directory = str(Path(__file__).parent.parent) + "/"
-    print(directory)
-    f = open(os.path.join(directory, 'example.ics'), 'wb')
+    f = open('example.ics', 'wb')
     f.write(cal.to_ical())
     f.close()
 

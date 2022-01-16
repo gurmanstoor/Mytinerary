@@ -1,4 +1,4 @@
-from flask import Flask, Response
+from flask import Flask, Response, send_from_directory
 from flask_cors import CORS
 import requests
 import json
@@ -6,6 +6,7 @@ import random
 from datetime import datetime
 from pdf_gen import create_pdf
 from ics_gen import create_ics
+import os
 
 random.seed(datetime.now())
 API_KEY = 'rZz4DQe06UyMRcTToBVyQrOrkltbyZ5F8MvO3yW8vadGOo41iG8PZKoi_-HWV4p7LVSIOnXIctifKNQf_1sSsmbP1RkWKnAufcpA5p65jU4a4zSmqX03dzP_cfPgYXYx'
@@ -59,8 +60,8 @@ def search_businesses(category, location, ids):
 def generate_itinerary(startDate, endDate, userLocation, userCategories, userBusyness):
     start = startDate.replace('-', ' ')
     end = endDate.replace('-', ' ')
-    startTime = datetime(start, '%b %d %Y')
-    endTime = datetime(end, '%b %d %Y')
+    startTime = datetime.strptime(start, '%b %d %Y')
+    endTime = datetime.strptime(end, '%b %d %Y')
     num_days = (endTime-startTime).days
     days_itin = []
     location = userLocation
@@ -131,10 +132,10 @@ def generate_itinerary(startDate, endDate, userLocation, userCategories, userBus
 
 @app.route('/api/get/itinerary/pdf')
 def get_pdf():
-    print("get pdf")
-    return 0
+    workingdir = os.path.abspath(os.getcwd())
+    return send_from_directory(workingdir, 'pdfTable.pdf')
 
 @app.route('/api/get/itinerary/ics')
 def get_ics():
-    print("get ics")
-    return 0
+    workingdir = os.path.abspath(os.getcwd())
+    return send_from_directory(workingdir, 'example.ics')
